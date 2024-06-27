@@ -2,13 +2,16 @@ import sqlite3
 from datetime import datetime
 import APIClient
 
+
 conn = sqlite3.connect('user_reviews.db')
 c = conn.cursor()
 
-with open('Database.sql', 'r') as f:
-    c.executescript(f.read())
-
-conn.commit()
+try:
+    with open('Database.sql', 'r') as f:
+        c.executescript(f.read())
+    conn.commit()
+except sqlite3.OperationalError:
+    pass
 
 
 def make_user():
@@ -46,7 +49,7 @@ def review_movie(user_id):
     title = input("Enter the movie title you want to submit a review for: ")
     if APIClient.is_horror_movie(title):  # ADD CHECKING MOVIE API FOR HORROR FILM OR NOT
         rating = int(input("Rate the movie out of 5 stars: "))
-        comment = input("Add some comments about the movie.")
+        comment = input("Add some comments about the movie: ")
         review_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         movie_id = APIClient.get_movie_id(title)  # MOVIE API
         c.execute("INSERT INTO reviews (user_id, movie_id, rating, comment, review_date) VALUES (?, ?, ?, ?, ?)",
@@ -76,3 +79,6 @@ def main():
                 print(f"We recommend you to watch: {recommendation}")
             else:
                 print("No horror movie recommendations available at the moment. Please try to submit more reviews 🎅")
+
+if __name__ == "__main__":
+    main()
