@@ -59,6 +59,19 @@ def review_movie(user_id):
     else:
         print("The movie is not a horror movie. Please try again.")
 
+def recommendation_made(user_id):
+    c.execute("SELECT COUNT(*) FROM reviews "
+              "WHERE user_id = ?", (user_id,))
+    count = c.fetchone()[0]
+    return count > 0
+
+def get_reviews(user_id):
+    c.execute("SELECT * FROM reviews "
+              "WHERE user_id = ?", (user_id,))
+    reviews = c.fetchall()
+    for review in reviews:
+        print(f"Movie Title: {review[2]}, Review: {review[3]}", end='\n')   # TO DO: fetch movie title instead of id
+
 def main():
     user_id = None
     while not user_id:
@@ -70,15 +83,20 @@ def main():
             user_id = login_user()
     
     while True:
-        action = input("Do you want to (1) Review a Movie or (2) Get a Recommended Movie? Enter 1 or 2: ")
+        action = input("Do you want to (1) Review a Movie, (2) Get a Recommended Movie, or (3) Get a List of Your Recommendations? Enter 1, 2, or 3: ")
         if action == '1':
             review_movie(user_id)
-        elif action == '2':
+        #elif action == '2':
            #CALL CHATGPT FUNCTION
-            if recommendation:
-                print(f"We recommend you to watch: {recommendation}")
+            # if recommendation_made:
+            #     print(f"We recommend you to watch: {}")  # TO DO: CALL RECOMMENDED MOVIE FROM SEOapi.py
+            # else:
+            #     print("No horror movie recommendations available at the moment. Please try to submit more reviews 🎅")
+        elif action == '3':
+            if recommendation_made(user_id):
+                get_reviews(user_id)
             else:
-                print("No horror movie recommendations available at the moment. Please try to submit more reviews 🎅")
+                print("You have not made any recommendations yet")
 
 if __name__ == "__main__":
     main()
