@@ -1,5 +1,6 @@
 import sqlite3
 from datetime import datetime
+import APIClient
 
 conn = sqlite3.connect('user_reviews.db')
 c = conn.cursor()
@@ -22,7 +23,7 @@ def make_user():
         conn.commit()
         print("Successfully Made a New Account!")
         return c.lastrowid
-    except sqlite3.IntegrityError: #Error that is caught, when that information, or any exists.
+    except sqlite3.IntegrityError:  # Error that is caught, when that information, or any exists.
         print("Username or Email already exists. You need to login.")
         return None
 
@@ -30,24 +31,24 @@ def login_user():
     username = input("Enter your username: ")
     password = input("Enter your password: ")
     
-    #Seeing if username and password is existent in the table from Users table
+    # Seeing if username and password is existent in the table from Users table
     
     c.execute("SELECT id FROM users WHERE username = ? AND password = ?", (username, password))
     user = c.fetchone()
     if user:
         print("Login successful!")
-        return user[0] #Getting id of user table
+        return user[0]  # Getting id of user table
     else:
         print("Invalid credentials. Please try again.")
         return None
 
 def review_movie(user_id):
     title = input("Enter the movie title you want to submit a review for: ")
-    if is_horror_movie(title): #ADD CHECKING MOVIE API FOR HORROR FILM OR NOT
+    if APIClient.is_horror_movie(title):  # ADD CHECKING MOVIE API FOR HORROR FILM OR NOT
         rating = int(input("Rate the movie out of 5 stars: "))
         comment = input("Add some comments about the movie.")
         review_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        movie_id = get_movie_id(title) # MOVIE API
+        movie_id = APIClient.get_movie_id(title)  # MOVIE API
         c.execute("INSERT INTO reviews (user_id, movie_id, rating, comment, review_date) VALUES (?, ?, ?, ?, ?)",
                   (user_id, movie_id, rating, comment, review_date))
         conn.commit()
