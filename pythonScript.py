@@ -62,7 +62,7 @@ def review_movie(user_id):
 def main():
     user_id = None
     while not user_id:
-        print("****** Welcome to our Horror Movie Recommendar ******", end='\n')
+        print("****** Welcome to our Horror Movie Recommender ******", end='\n')
         action = input("Do you want to (1) Register or (2) Login? Enter 1 or 2: ")
         if action == '1':
             user_id = make_user()
