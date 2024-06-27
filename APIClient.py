@@ -10,6 +10,22 @@ def search_movie(title):
         return None
 
 
+def get_movie_id(title):
+    movie = search_movie(title)
+    if movie:
+        return movie.movieID
+    else:
+        return None
+
+
+def is_horror_movie(title):
+    ia = Cinemagoer()
+    movie_id = get_movie_id(title)
+    movie = ia.get_movie(movie_id)
+    genres = movie.get('genres', [])
+    return 'Horror' in genres
+
+
 def get_movie_details(movie):
     ia = Cinemagoer()
     movie_id = movie.movieID
@@ -23,6 +39,7 @@ def get_movie_details(movie):
         'plot': movie['plot'][0] if 'plot' in movie else 'No plot available'
     }
     return details
+
 
 # How to access specific movie details
 # if __name__ == "__main__":
