@@ -1,6 +1,7 @@
 import sqlite3
 from datetime import datetime
 import APIClient
+import SEOapi
 
 
 conn = sqlite3.connect('user_reviews.db')
@@ -69,8 +70,9 @@ def get_reviews(user_id):
     c.execute("SELECT * FROM reviews "
               "WHERE user_id = ?", (user_id,))
     reviews = c.fetchall()
-    for review in reviews:
-        print(f"Movie Title: {review[2]}, Review: {review[3]}", end='\n')   # TO DO: fetch movie title instead of id
+    return reviews
+    # for review in reviews:
+    #     print(f"Movie Title: {review[2]}, Review: {review[3]}", end='\n')   # TO DO: fetch movie title instead of id
 
 def main():
     user_id = None
@@ -86,12 +88,12 @@ def main():
         action = input("Do you want to (1) Review a Movie, (2) Get a Recommended Movie, or (3) Get a List of Your Recommendations? Enter 1, 2, or 3: ")
         if action == '1':
             review_movie(user_id)
-        #elif action == '2':
+        elif action == '2':
            #CALL CHATGPT FUNCTION
-            # if recommendation_made:
-            #     print(f"We recommend you to watch: {}")  # TO DO: CALL RECOMMENDED MOVIE FROM SEOapi.py
-            # else:
-            #     print("No horror movie recommendations available at the moment. Please try to submit more reviews 🎅")
+            if recommendation_made:
+                print(SEOapi.ask_ai(get_reviews(user_id)))  # TO DO: CALL RECOMMENDED MOVIE FROM SEOapi.py
+            else:
+                print("No horror movie recommendations available at the moment. Please try to submit more reviews 🎅")
         elif action == '3':
             if recommendation_made(user_id):
                 get_reviews(user_id)
