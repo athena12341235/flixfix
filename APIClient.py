@@ -24,3 +24,17 @@ def get_movie_details(movie):
     }
     return details
 
+# How to access specific movie details
+# if __name__ == "__main__":
+#     movie_title = input("Enter the movie title: ")
+#     movie = search_movie(movie_title)
+#     if movie:
+#         details = get_movie_details(movie)
+#         print(f"Title: {details['title']}")
+#         print(f"Year: {details['year']}")
+#         print(f"Genres: {', '.join(details['genres'])}")
+#         print(f"Director: {', '.join(details['directors'])}")
+#         print(f"Cast: {', '.join(details['cast'])}")
+#         print(f"Plot: {details['plot']}")
+#     else:
+#         print(f"No results found for '{movie_title}'")
