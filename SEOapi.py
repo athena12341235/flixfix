@@ -12,8 +12,8 @@ client = OpenAI(
     api_key=my_api_key,
 )
 
-def ask_ai(prompt):
-
+def ask_ai(review):
+  prompt= f"Using this list of films watched by a user and the ratings out of 5 they gave these films.{review} Can you give a movie recommendation? Just return the name of the movie."
   # Specify the model to use and the messages to send
   completion = client.chat.completions.create(
       model="gpt-3.5-turbo",
@@ -42,6 +42,17 @@ films=['Pulp Fiction',
 
 ratings=[8,10,7,9,6]
 
-prompt= f"Using this list of films watched by a user: {films} and a list of the ratings out of 10 of they gave these films: {ratings}. Can you give a Horror movie recommendation? Just return the name of the movie."
 
-print(ask_ai(prompt))
+# print(ask_ai(prompt))
+# #prompt= f"Using this list of films watched by a user: {films} and a list of the ratings out of 10 of they gave these films: {ratings}. Can you give a movie recommendation? Just return the name of the movie."
+
+
+
+
+
+
+
+
+
+
+
