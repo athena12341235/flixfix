@@ -42,16 +42,6 @@ films=['Pulp Fiction',
 
 ratings=[8,10,7,9,6]
 
-prompt= f"Using this list of films watched by a user: {films} and a list of the ratings out of 10 of they gave these films: {ratings}. Can you give a movie recommendation? Just return the name of the movie."
+prompt= f"Using this list of films watched by a user: {films} and a list of the ratings out of 10 of they gave these films: {ratings}. Can you give a Horror movie recommendation? Just return the name of the movie."
 
 print(ask_ai(prompt))
-
-
-
-
-
-
-
-
-
-
