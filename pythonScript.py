@@ -49,10 +49,10 @@ def login_user():
          password))
     user = c.fetchone()
     if user:
-        print("\nLogin successful!")
+        print("\nLogin successful!\n")
         return user[0]  # Getting id of user table
     else:
-        print("\nInvalid credentials. Please try again.")
+        print("\nInvalid credentials. Please try again.\n")
         return None
 
 
@@ -84,9 +84,9 @@ def review_movie(user_id):
              comment,
              review_date))
         conn.commit()
-        print("\nReview submitted!")
+        print("\nReview submitted!\n")
     else:
-        print("\nThe movie title does not exist in the Cinemagoer API. Please enter a valid movie title.")
+        print("\nThe movie title does not exist in the Cinemagoer API. Please enter a valid movie title.\n")
 
 
 def recommendation_made(user_id):
@@ -122,12 +122,13 @@ def fetch_reviews(user_id):
 
 def print_reviews(user_id):
     movies, ratings, comments, review_dates = fetch_reviews(user_id)
-    print("\nYour Reviews:")
+    print("\nYour Reviews:\n")
     for movie, rating, comment, review_date in zip(
             movies, ratings, comments, review_dates):
         print(
-            f"Movie: {movie}, Rating: {rating}, Comment: {comment}, Review Date: {review_date}",
+            f"\tMovie: {movie}, Rating: {rating}, Comment: {comment}, Review Date: {review_date}",
             end='\n')
+    print("")
     return movies, ratings, comments, review_dates
 
 
@@ -157,7 +158,7 @@ def get_recommendation(user_id):
         movies, ratings, _, _ = fetch_reviews(user_id)
         recommendation = SEOapi.get_movie_recommendation(
             movies, ratings, genre, age_rating, year_range)
-        print(f"\nBased on your history, we recommend you to watch: \n{recommendation}\n")
+        print(f"\nBased on your review history and answers, we recommend you to watch: \n\n{recommendation}\n")
     else:
         print(
             "\nNo movie recommendations available at the moment. Must submit a movie review 🎅",
@@ -170,16 +171,23 @@ def main():
         print(
             "\n****** Welcome to FlixFix, Your Personalized Movie Recommender ******",
             end='\n')
+        print("\nNew users must register. Returning users must login.")
+        print("\n\t1. Register")
+        print("\t2. Login")
         action = input(
-            "Do you want to (1) Register or (2) Login? Enter 1 or 2: ")
+            "\nPlease enter the number of your choice (1 or 2): ")
         if action == '1':
             user_id = make_user()
         elif action == '2':
             user_id = login_user()
 
     while True:
-        action = input(
-            "Do you want to (1) Review a Movie, (2) Get a Recommended Movie, (3) Get a List of Your Reviews, or (4) Quit? Enter 1, 2, 3, or 4: ")
+        print("What would you like to do next?")
+        print("\n\t1. Review a Movie")
+        print("\t2. Get a Recommended Movie")
+        print("\t3. Get a List of Your Reviews")
+        print("\t4. Quit\n")
+        action = input("Please enter the number of your choice (1, 2, 3, or 4): ")
         if action == '1':
             review_movie(user_id)
         elif action == '2':
@@ -190,7 +198,7 @@ def main():
             else:
                 print("\nYou have not made any recommendations yet\n")
         elif action == '4':
-            print("\nThank you for using our Horror Movie Recommender. Goodbye!")
+            print("\nThank you for using FlixFix. Goodbye!")
             break
 
 
