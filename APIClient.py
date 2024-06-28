@@ -35,7 +35,8 @@ def get_movie_details(movie):
         'year': movie['year'],
         'genres': movie['genres'],
         'directors': [d['name'] for d in movie['directors']],
-        'cast': [a['name'] for a in movie['cast'][:10]],  # First 10 cast members
+        # First 10 cast members
+        'cast': [a['name'] for a in movie['cast'][:10]],
         'plot': movie['plot'][0] if 'plot' in movie else 'No plot available'
     }
     return details
