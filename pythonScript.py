@@ -153,7 +153,7 @@ def get_recommendation(user_id):
         f"Select a recency range from the following list: {', '.join(year_ranges)}: ")
 
     if recommendation_made(user_id):
-        movies, ratings = fetch_reviews(user_id)
+        movies, ratings, _, _ = fetch_reviews(user_id)
         recommendation = SEOapi.get_movie_recommendation(
             movies, ratings, genre, age_rating, year_range)
         print(f"We recommend you to watch: \n{recommendation}\n")
