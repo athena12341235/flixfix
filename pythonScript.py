@@ -29,11 +29,11 @@ def make_user():
              email,
              signup_date))
         conn.commit()
-        print("Successfully Made a New Account!")
+        print("\nSuccessfully Made a New Account!")
         return c.lastrowid
     # Error that is caught, when that information, or any exists.
     except sqlite3.IntegrityError:
-        print("Username already exists. You need to login.")
+        print("\nUsername already exists. You need to login.")
         return None
 
 
@@ -49,10 +49,10 @@ def login_user():
          password))
     user = c.fetchone()
     if user:
-        print("Login successful!")
+        print("\nLogin successful!")
         return user[0]  # Getting id of user table
     else:
-        print("Invalid credentials. Please try again.")
+        print("\nInvalid credentials. Please try again.")
         return None
 
 
@@ -84,9 +84,9 @@ def review_movie(user_id):
              comment,
              review_date))
         conn.commit()
-        print("Review submitted!")
+        print("\nReview submitted!")
     else:
-        print("The movie title does not exist in the Cinemagoer API. Please enter a valid movie title.")
+        print("\nThe movie title does not exist in the Cinemagoer API. Please enter a valid movie title.")
 
 
 def recommendation_made(user_id):
@@ -122,6 +122,7 @@ def fetch_reviews(user_id):
 
 def print_reviews(user_id):
     movies, ratings, comments, review_dates = fetch_reviews(user_id)
+    print("\nYour Reviews:")
     for movie, rating, comment, review_date in zip(
             movies, ratings, comments, review_dates):
         print(
@@ -146,7 +147,7 @@ def get_recommendation(user_id):
     year_ranges = ["2000-2010", "2011-2015", "2016-2020", "2021-present"]
 
     genre = input(
-        f"Select a genre from the following list: {', '.join(genres)}: ")
+        f"\nSelect a genre from the following list: {', '.join(genres)}: ")
     age_rating = input(
         f"Select an age-appropriateness rating from the following list: {', '.join(age_ratings)}: ")
     year_range = input(
@@ -156,10 +157,10 @@ def get_recommendation(user_id):
         movies, ratings, _, _ = fetch_reviews(user_id)
         recommendation = SEOapi.get_movie_recommendation(
             movies, ratings, genre, age_rating, year_range)
-        print(f"We recommend you to watch: \n{recommendation}\n")
+        print(f"\nBased on your history, we recommend you to watch: \n{recommendation}\n")
     else:
         print(
-            "No movie recommendations available at the moment. Must submit a movie review 🎅",
+            "\nNo movie recommendations available at the moment. Must submit a movie review 🎅",
             end='\n')
 
 
@@ -167,7 +168,7 @@ def main():
     user_id = None
     while not user_id:
         print(
-            "****** Welcome to FlixFix, Your Personalized Movie Recommender ******",
+            "\n****** Welcome to FlixFix, Your Personalized Movie Recommender ******",
             end='\n')
         action = input(
             "Do you want to (1) Register or (2) Login? Enter 1 or 2: ")
@@ -187,9 +188,9 @@ def main():
             if recommendation_made(user_id):
                 print_reviews(user_id)
             else:
-                print("You have not made any recommendations yet")
+                print("\nYou have not made any recommendations yet\n")
         elif action == '4':
-            print("Thank you for using our Horror Movie Recommender. Goodbye!")
+            print("\nThank you for using our Horror Movie Recommender. Goodbye!")
             break
 
 
