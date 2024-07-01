@@ -1,8 +1,9 @@
-# project1
-RUN THE PYTHONSCRIPT FILE TO USE PROGRAM
+# FlixFix
 
-CREATE/USE YOUR OWN API KEY
-
+CREATE YOUR OWN OPENAI API KEY, PASTE INTO 'OPENAI.PY'
+PIP INSTALL OPENAI
+PIP INSTALL CINEMAGOER
+RUN 'MAIN.PY' TO USE PROGRAM
 
 Database Schema Design:
 Users Table:
@@ -20,20 +21,3 @@ Title: The title of the movie.
 Genre: Primary genre of the movie.
 ReleaseYear: Year the movie was released.
 Director: Director of the movie.
-
-
-UserPreferences Table:
-
-PreferenceID (Primary Key): Unique identifier for each record.
-UserID (Foreign Key): Links to the Users table.
-MovieID (Foreign Key): Links to the Movies table.
-Rating: User's rating for the movie.
-Favorite: Boolean indicating if this is one of their favorite movies.
-
-MovieDiscussions Table:
-
-DiscussionID (Primary Key): Unique identifier for each discussion session.
-UserID (Foreign Key): Links to the Users table.
-MovieID (Foreign Key): Links to the Movies table.
-Timestamp: When the discussion/comment was made.
-Comment: The user's comment or discussion input.
