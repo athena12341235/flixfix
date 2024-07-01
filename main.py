@@ -200,7 +200,3 @@ def main():
         elif action == '4':
             print("\nThank you for using FlixFix. Goodbye!")
             break
-
-
-if __name__ == "__main__":
-    main()
