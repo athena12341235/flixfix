@@ -1,7 +1,7 @@
 # project1
 RUN THE PYTHONSCRIPT FILE TO USE PROGRAM
 
-Create/ use your own api key
+CREATE/USE YOUR OWN API KEY
 
 
 Database Schema Design:
