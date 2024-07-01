@@ -1,4 +1,7 @@
 # project1
+RUN THE PYTHONSCRIPT FILE TO USE PROGRAM
+Create/ use your own api key
+
 
 Database Schema Design:
 Users Table:
